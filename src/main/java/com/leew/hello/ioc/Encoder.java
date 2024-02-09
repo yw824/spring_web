@@ -3,13 +3,13 @@ package com.leew.hello.ioc;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component // 스프링 컨테이너에서 IoC를 자동으로 수행하게끔 하는 Annotation
-// 클래스명 왼쪽에 Spring 콩 모양이 붙으면, Bean으로 등록된다.
+// 이번에는 컴포넌트로 두지 않고,
+// bean으로 Configuration 클래스(class AppConfig)에서 직접 등록시키려 한다.
 public class Encoder {
 
     private IEncoder iEncoder;
 
-    public Encoder(@Qualifier("base64Encoder")IEncoder iEncoder) {
+    public Encoder(IEncoder iEncoder) {
         this.iEncoder = iEncoder;
     }
 
@@ -21,3 +21,5 @@ public class Encoder {
         return iEncoder.encode(message);
     }
 }
+
+
