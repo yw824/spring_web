@@ -1,0 +1,16 @@
+{
+  "name": "scott",
+  "age": "20",
+  "cars": [
+    {
+      "name": "K5",
+      "car_number": "11가 1111",
+      "TYPE": "SEDAN"
+    },
+    {
+      "name": "Q5",
+      "carNumber": "22나 1234",
+      "TYPE": "SUV"
+    }
+  ]
+}
