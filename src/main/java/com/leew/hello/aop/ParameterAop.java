@@ -38,7 +38,7 @@ public class ParameterAop {
 
         // 이거 쓰려면, GET Controller에서 리턴 값을 만들어줘야 한다.
         System.out.println("After Returning: ");
-        System.out.println(returnObj);
+        System.out.println(returnObj); // null
 
     }
 }

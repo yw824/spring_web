@@ -1,6 +1,8 @@
 package com.leew.hello.controller;
 
+import com.leew.hello.annotation.Timer;
 import com.leew.hello.dto.AOPUser;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,5 +37,19 @@ public class AOPController {
                  "email": "leew@gmail.com"
             }
          */
+    }
+
+    @Timer // Timer라는, 우리가 직접 만든 Annotation을 붙인다.
+    @DeleteMapping("/delete")
+    public void delete() throws InterruptedException {
+        // db logic : 2초 걸린다-라고 가정. - 임의로 sleep 2초 걸기
+
+        // StopWatch stopWatch = new StopWatch();
+        // stopWatch.start();
+
+        Thread.sleep(1000 * 2);
+
+        // stopWatch.stop();
+        // System.out.println("In DeleteAPI - Total Time: " + stopWatch.getTotalTimeSeconds());
     }
 }
