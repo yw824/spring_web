@@ -1,5 +1,6 @@
 package com.leew.hello.controller;
 
+import com.leew.hello.annotation.Decode;
 import com.leew.hello.annotation.Timer;
 import com.leew.hello.dto.AOPUser;
 import org.springframework.util.StopWatch;
@@ -51,5 +52,24 @@ public class AOPController {
 
         // stopWatch.stop();
         // System.out.println("In DeleteAPI - Total Time: " + stopWatch.getTotalTimeSeconds());
+    }
+
+    @Decode
+    @PutMapping("/put") // Decode 위한 Put API 새로 생성
+    public AOPUser put(@RequestBody AOPUser user) {
+        System.out.println("PUT Method: ");
+        System.out.println(user);
+
+        // afterReturning JoinPoint 때문에 리턴값 생성
+        return user;
+
+        // http://localhost:9090/aop/put
+        /* BODY :
+            {
+                 "id": "leew",
+                 "pw": "1234",
+                 "email": "bGVld0BnbWFpbC5jb20="
+            }
+         */
     }
 }
