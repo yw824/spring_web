@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class ValidUser {
 
@@ -25,6 +26,16 @@ public class ValidUser {
     // 그러나, 6글자라고 다 연도-월 일 수는 없다. 상식에 맞는 데이터인지, 검증하는 추가 함수가 필요하다.
     // -> YearMonthValidation.isValid 함수 수행 -> YearMonth의 ConstraintValidator 가졌기 때문
     // implements ConstraintValidator(<YearMonth, String>)
+
+    private List<carDTO> cars;
+
+    public List<carDTO> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<carDTO> cars) {
+        this.cars = cars;
+    }
 
     public String getName() {
         return name;
@@ -74,6 +85,7 @@ public class ValidUser {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", reqYearMonth='" + reqYearMonth + '\'' +
+                ", cars=" + cars +
                 '}';
     }
 }

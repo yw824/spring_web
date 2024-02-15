@@ -1,9 +1,13 @@
 package com.leew.hello.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 
 public class carDTO {
+    @NotBlank
     private String name;
+
+    @NotBlank
     @JsonProperty("car_number")
     private String carNumber;
 
