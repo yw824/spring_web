@@ -49,7 +49,8 @@ public class ValidationController {
               "name": "홍길동",
               "age": 1300,
               "email": "hgd123",
-              "phoneNumber": "01012345678"
+              "phoneNumber": "01012345678",
+              "reqYearMonth": "202402"
             }
          */
 

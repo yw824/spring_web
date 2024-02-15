@@ -1,9 +1,10 @@
 package com.leew.hello.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Pattern;
+import com.leew.hello.annotation.YearMonth;
+import jakarta.validation.constraints.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ValidUser {
 
@@ -17,6 +18,13 @@ public class ValidUser {
     // 정규식 패턴을 유효성 패턴으로 사용하기 위한 Annotation
     @Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxx(x)-xxxx")
     private String phoneNumber;
+
+    // @Size(min=6, max=6)
+    @YearMonth
+    private String reqYearMonth; // 요청 시간(yyyyMM)
+    // 그러나, 6글자라고 다 연도-월 일 수는 없다. 상식에 맞는 데이터인지, 검증하는 추가 함수가 필요하다.
+    // -> YearMonthValidation.isValid 함수 수행 -> YearMonth의 ConstraintValidator 가졌기 때문
+    // implements ConstraintValidator(<YearMonth, String>)
 
     public String getName() {
         return name;
@@ -50,6 +58,14 @@ public class ValidUser {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getReqYearMonth() {
+        return reqYearMonth;
+    }
+
+    public void setReqYearMonth(String reqYearMonth) {
+        this.reqYearMonth = reqYearMonth;
+    }
+
     @Override
     public String toString() {
         return "ValidUser{" +
@@ -57,6 +73,7 @@ public class ValidUser {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", reqYearMonth='" + reqYearMonth + '\'' +
                 '}';
     }
 }
