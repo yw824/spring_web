@@ -31,7 +31,11 @@ public class YearMonthValidator implements ConstraintValidator<YearMonth, String
         try { // 날짜까지 들어가야 한다. 그래서 내부적으로 사전 작업
             LocalDate localDate = LocalDate.parse(
                     value + "01", // 파라미터로 받은 value yyyyMM 파라미터를 받으면 된다.
-                    DateTimeFormatter.ofPattern("yyyyMMdd"));
+                    DateTimeFormatter.ofPattern(this.pattern));
+            // this.pattern으로 가져온 패턴에 해당 value 값이 맞는지 확인
+            // 그런데 여기서는 yyyyMM + 01이기 때문에 dd까지 패턴으로 가지고 있어야 확인 가능
+            // 그런데 yyyyMM까지만 받으면 DateTimeFormatter에서 옳은 형식으로 받지 않는다.
+            // default에서 yyyyMMdd까지 설정해 줘야 한다.
         } catch(Exception e) {
             e.printStackTrace();
             return false;
