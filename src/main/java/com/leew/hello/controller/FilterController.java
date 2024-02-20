@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/filter")
 public class FilterController {
 
-    @PostMapping("")
+    @PostMapping("/post")
     public FilterDTO user(@RequestBody FilterDTO user) {
         log.info("User: {}", user);
         return user; // echo return
