@@ -17,6 +17,8 @@ public class MvcConfig implements WebMvcConfigurer {
     private final AuthInterceptor authInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor);
+        registry.addInterceptor(authInterceptor)
+                .addPathPatterns("/access/private"); // 특정 패턴에서만 작동하거나 특정 패턴만 제외하는 코드
+            // add이기 때문에, 여러 개 넣으면, 넣은 앞 순서부터 뒤 순서대로 Interceptor 순차적으로 진행
     }
 }
