@@ -31,10 +31,12 @@ public class ServerApiController {
     public FilterDTO post(
             @RequestBody FilterDTO user,
             @PathVariable(value = "userName") String userName,
-            @PathVariable(value = "userAge") int userAge
+            @PathVariable(value = "userAge") int userAge,
+            @RequestHeader("x-authorization") String authorization,
+            @RequestHeader("custom-header") String customHeader
     ) { // DTO 객체로 담아서도 올 수 있고, 각자 변수대로 담아서 올 수도 있다.
         log.info("userId: {}, userName: {}", userName, userAge);
-        // log.info(user.getName(), user.getAge());
+        log.info("x-authorization: {}, custom_header: {}", authorization, customHeader);
         log.info("client req: {}", user);
         return user;
     }
