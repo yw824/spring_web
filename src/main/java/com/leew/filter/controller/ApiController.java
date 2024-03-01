@@ -28,4 +28,9 @@ public class ApiController {
     public User getJson() {
         return restTemplateService.getJson();
     }
+
+    @GetMapping("/post")
+    public User post() {
+        return restTemplateService.post();
+    }
 }

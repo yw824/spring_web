@@ -1,13 +1,12 @@
 package com.leew.hello.controller;
 
 import com.leew.hello.dto.FilterDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/server")
+@Slf4j
 public class ServerApiController {
 
     @GetMapping("/string")
@@ -27,4 +26,17 @@ public class ServerApiController {
 
         return user;
     }
+
+    @PostMapping("/name/{userName}/age/{userAge}")
+    public FilterDTO post(
+            @RequestBody FilterDTO user,
+            @PathVariable(value = "userName") String userName,
+            @PathVariable(value = "userAge") int userAge
+    ) { // DTO 객체로 담아서도 올 수 있고, 각자 변수대로 담아서 올 수도 있다.
+        log.info("userId: {}, userName: {}", userName, userAge);
+        // log.info(user.getName(), user.getAge());
+        log.info("client req: {}", user);
+        return user;
+    }
+
 }
