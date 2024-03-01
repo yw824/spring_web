@@ -36,6 +36,11 @@ public class ApiController {
         return restTemplateService.post();
     }
 
+    @GetMapping("/exchange")
+    public User exchange() {
+        return restTemplateService.exchange();
+    }
+
     @GetMapping("/genericExchange")
     public Req<UserResponse> genericExchange() {
         return restTemplateService.genericExchange();
