@@ -1,9 +1,11 @@
 package com.leew.filter.service;
 
+import com.leew.filter.dto.Req;
 import com.leew.filter.dto.User;
 import com.leew.filter.dto.UserRequest;
 import com.leew.filter.dto.UserResponse;
 import org.apache.coyote.Request;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -146,8 +148,61 @@ public class RestTemplateService {
         return response.getBody();
     }
 
-    public UserResponse genericExchange() {
+    public Req<UserResponse> genericExchange() {
+        // http://localhost:9090/api/server/user/{userId}/name/{userName}
+        /*
+            {
+                "header" : {
 
+                },
+                "body" : {
+                    "name": "aaaa",
+                    "age": 88
+                }
+            }
+         */
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("/api/server/name/{userName}/age/{userAge}")
+                .encode().build()
+                .expand("scott", 88) // 각각의 requestBody 이름과 연결된다.
+                .toUri();
+
+        System.out.println(uri);
+
+        UserRequest userRequest = new UserRequest();
+        userRequest.setName("steve");
+        userRequest.setAge(10);
+
+        UserRequest body = new UserRequest();
+        body.setName("Doe");
+        body.setAge(10);
+
+        Req req = new Req<UserRequest>();
+        req.setHeader(new Req.Header());
+        req.setResBody(userRequest);
+
+        // http body -> object -> object mapper -> json -> restTemplate -> http body(json)
+
+        RequestEntity<Req<UserRequest>> requestEntity = RequestEntity.post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("x-authorization", "abcd")
+                .header("custom-header", "ffffff")
+                .body(req);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // ResponseEntity<Req<UserRequest>> response = restTemplate.exchange(requestEntity,
+        //      Req<UserResponse>.class); // Generic에는 class를 붙일 수가 없어 에러 발생
+
+        // 이에 대응하기 위해 "parameterized-type reference 사용
+        ResponseEntity<Req<UserResponse>> response = restTemplate.exchange(requestEntity,
+                new ParameterizedTypeReference<>() {}
+        ); // 미리 반환 자료형을 설정했기 때문에 ParameterizedTypeReference의 Generic Type에는 넣지 않아도 된다. (생략가능)
+
+        return response
+                .getBody(); // Req<ResponseBody>
+        //.getResBody(); // ResponseBody
     }
 }
 

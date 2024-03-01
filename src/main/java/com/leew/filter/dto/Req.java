@@ -3,7 +3,7 @@ package com.leew.filter.dto;
 public class Req<T> {
 
     private Header header;
-    private T body; // JSON마다 다른 Body를 가질 것이기 때문
+    private T resBody; // JSON마다 다른 Body를 가질 것이기 때문
 
     // 이러한 형태를 서버에서도 받아야 한다.
 
@@ -29,19 +29,19 @@ public class Req<T> {
         this.header = header;
     }
 
-    public T getBody() {
-        return body;
+    public T getResBody() {
+        return resBody;
     }
 
-    public void setBody(T body) {
-        this.body = body;
+    public void setResBody(T body) {
+        this.resBody = body;
     }
 
     @Override
     public String toString() {
         return "Req{" +
                 "header=" + header +
-                ", body=" + body +
+                ", body=" + resBody +
                 '}';
     }
 }

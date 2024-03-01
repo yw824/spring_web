@@ -1,6 +1,8 @@
 package com.leew.hello.controller;
 
+import com.leew.filter.dto.User;
 import com.leew.hello.dto.FilterDTO;
+import com.leew.hello.dto.Req;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +30,8 @@ public class ServerApiController {
     }
 
     @PostMapping("/name/{userName}/age/{userAge}")
-    public FilterDTO post(
-            @RequestBody FilterDTO user,
+    public Req<FilterDTO> post(
+            @RequestBody Req<FilterDTO> user,
             @PathVariable(value = "userName") String userName,
             @PathVariable(value = "userAge") int userAge,
             @RequestHeader("x-authorization") String authorization,
@@ -38,7 +40,16 @@ public class ServerApiController {
         log.info("userId: {}, userName: {}", userName, userAge);
         log.info("x-authorization: {}, custom_header: {}", authorization, customHeader);
         log.info("client req: {}", user);
-        return user;
+
+        Req<FilterDTO> response = new Req<>();
+        response.setHeader(
+                new Req.Header()
+        );
+        response.setBody(
+                user.getBody()
+        );
+
+        return response; // 반환할 때도 Header + Body의 형태여야 하기 때문에 Req<FilterDTO>
     }
 
 }

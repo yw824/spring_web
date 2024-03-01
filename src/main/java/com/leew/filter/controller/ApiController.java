@@ -1,6 +1,8 @@
 package com.leew.filter.controller;
 
+import com.leew.filter.dto.Req;
 import com.leew.filter.dto.User;
+import com.leew.filter.dto.UserResponse;
 import com.leew.filter.service.RestTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,10 @@ public class ApiController {
     @GetMapping("/post")
     public User post() {
         return restTemplateService.post();
+    }
+
+    @GetMapping("/genericExchange")
+    public Req<UserResponse> genericExchange() {
+        return restTemplateService.genericExchange();
     }
 }
